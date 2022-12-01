@@ -16,6 +16,10 @@ class UserAdapter(
     ) :
     RecyclerView.Adapter<UserAdapter.holder>() {
 
+    var onItemClick : ((UserModel) -> Unit)? = null
+    var onImageClick : ((UserModel) -> Unit)? = null
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): holder {
 
@@ -33,6 +37,19 @@ class UserAdapter(
         // on below line we are loading our image
         // from url in our image view using glide.
         Glide.with(context).load(userModal.avatar).into(holder.userIV)
+
+
+        holder.userIV.setOnClickListener{
+            onImageClick?.invoke(userModal)
+
+
+        }
+
+              holder.itemView.setOnClickListener {
+           onItemClick?.invoke(userModal)
+
+}
+
     }
 
     override fun getItemCount(): Int {
